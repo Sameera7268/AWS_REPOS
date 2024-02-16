@@ -26,9 +26,23 @@
         remote_src : yes
   - name : INstall docker
     apt :
-      name : docket.io
+      name : docker.io
       state : present
 
   - name : start docker service
     service :
-      state : started    
+      name : docker 
+      state : started  
+
+  - name : give permission to  var/run/docker.sock
+    file :
+      path : var/run/docker.sock
+      state : file
+      mode : 077
+
+
+  - name : start docker on boot cache_valid_time
+    service :
+      name : docker
+      enabled : yes    
+
